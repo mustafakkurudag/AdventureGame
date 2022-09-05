@@ -25,6 +25,9 @@ public class Game {
             System.out.println("Bölgeler: ");
             System.out.println("1- Güvenli Ev");
             System.out.println("2- Mağaza");
+            System.out.println("3- Mağara -->> Ödül: <Yemek>  Dikkatli ol! Canavar çıkabilir!");
+            System.out.println("4- Orman -->> Ödül: <Odun>   Dikkatli ol! Canavar çıkabilir!");
+            System.out.println("5- Nehir -->> Ödül: <Su>  Dikkatli ol! Canavar çıkabilir!");
             System.out.println("0- Çıkış Yap");
 
             System.out.print("Lütfen gitmek istediğiniz bölgeyi seçiniz:");
@@ -39,6 +42,15 @@ public class Game {
                     break;
                 case 2:
                     location = new ToolStore(player);
+                    break;
+                case 3:
+                    location = new Cave(player);
+                    break;
+                case 4:
+                    location = new Forest(player);
+                    break;
+                case 5:
+                    location = new River(player);
                     break;
                 default:
                     location = new SafeHouse(player);
