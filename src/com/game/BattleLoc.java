@@ -3,12 +3,15 @@ package com.game;
 import java.util.Random;
 
 public class BattleLoc extends Location {
+    private int id;
     private Monster monster;
     private String award;
     private int maxMonster;
+    private boolean clean;
 
-    public BattleLoc(Player player, String name, Monster monster, String award, int maxMonster) {
+    public BattleLoc(Player player, String name, int id, Monster monster, String award, int maxMonster) {
         super(player, name);
+        this.id = id;
         this.monster = monster;
         this.award = award;
         this.maxMonster = maxMonster;
@@ -23,9 +26,28 @@ public class BattleLoc extends Location {
         System.out.println("<S>avaş veya <K>aç");
         String selectCase = scanner.nextLine();
         selectCase = selectCase.toUpperCase();
-        if (selectCase.equals("S") && combat(monsterNumber)) {
-            System.out.println("Savaş başlıyor...");
-            System.out.println(this.getName() + " Tebrikler. Tüm düşmanları yendiniz...");
+        if (!this.isClean()) {
+            if (selectCase.equals("S") && combat(monsterNumber)) {
+                System.out.println("Savaş başlıyor...");
+                System.out.println(this.getName() + " Tebrikler. Tüm düşmanları yendiniz...");
+                if (this.getId() == 3) {
+                    this.getPlayer().getInventory().getObjects().add("Yemek");
+                    this.setClean(true);
+                }
+
+                if (this.getId() == 4) {
+                    this.getPlayer().getInventory().getObjects().add("Odun");
+                    this.setClean(true);
+                }
+
+                if (this.getId() == 5) {
+                    this.getPlayer().getInventory().getObjects().add("Su");
+                    this.setClean(true);
+                }
+                return true;
+            }
+        } else {
+            System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
             return true;
         }
 
@@ -106,6 +128,14 @@ public class BattleLoc extends Location {
         return r.nextInt(this.getMaxMonster()) + 1; //(0 ile 2) + 1 arasında rastgele sayı üretir. canavar sayısını belirler.
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Monster getMonster() {
         return monster;
     }
@@ -128,5 +158,13 @@ public class BattleLoc extends Location {
 
     public void setMaxMonster(int maxMonster) {
         this.maxMonster = maxMonster;
+    }
+
+    public boolean isClean() {
+        return clean;
+    }
+
+    public void setClean(boolean clean) {
+        this.clean = clean;
     }
 }

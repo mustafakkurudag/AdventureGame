@@ -10,6 +10,7 @@ public class Player {
 
     private int damage;
     private int health;
+    private int originalHealth;
     private int money;
     private String charName;//character name
     private String name;
@@ -50,25 +51,21 @@ public class Player {
             default:
                 initPlayer(new Samurai());
         }
-        /*
-        System.out.println("Karakter: " + this.getCharName() +
-                        " \t Hasar: " + this.getDamage() +
-                        " \t Sağlık: " + this.getHealth() +
-                        " \t Para: " + this.getMoney() + " seçildi...");
-         */
     }
 
     public void initPlayer(GameChar gameChar) {
         this.setCharName(gameChar.getName());
         this.setDamage(gameChar.getDamage());
         this.setHealth(gameChar.getHealth());
+        this.setOriginalHealth(gameChar.getHealth());
         this.setMoney(gameChar.getMoney());
     }
 
     public void printInfo() {
         System.out.println(this.getCharName());
         System.out.println("Silahınız: " + this.getInventory().getWeapon().getName() +
-                " Zırhınız: " + this.getInventory().getWeapon().getName() +
+                " Zırhınız: " + this.getInventory().getArmor().getName() +
+                " Kazanımlar:  " + this.getInventory().getObjects() +
                 " Hasar: " + this.getTotalDamage() + " Sağlık: " + this.getHealth() + " Para:" + this.getMoney()
         );
     }
@@ -89,6 +86,8 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        if (health < 0)
+            health = 0;
         this.health = health;
     }
 
@@ -122,5 +121,13 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
     }
 }
