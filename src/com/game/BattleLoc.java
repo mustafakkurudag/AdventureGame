@@ -7,7 +7,6 @@ public class BattleLoc extends Location {
     private Monster monster;
     private String award;
     private int maxMonster;
-    private boolean clean;
 
     public BattleLoc(Player player, String name, int id, Monster monster, String award, int maxMonster) {
         super(player, name);
@@ -15,24 +14,28 @@ public class BattleLoc extends Location {
         this.monster = monster;
         this.award = award;
         this.maxMonster = maxMonster;
+        this.setClean(false);
     }
 
     @Override
     public boolean onLocation() {
         int monsterNumber = this.randomMonsterNumber();
-        System.out.println("Şu an buradasınız: " + this.getName());
-        System.out.println("Dikkatli ol! Burada " + monsterNumber + " adet " +
-                this.getMonster().getName() + " yaşıyor!");
-        System.out.println("<S>avaş veya <K>aç");
-        String selectCase = scanner.nextLine();
-        selectCase = selectCase.toUpperCase();
         if (!this.isClean()) {
+            System.out.println("Şu an buradasınız: " + this.getName());
+            System.out.println("Dikkatli ol! Burada " + monsterNumber + " adet " +
+                    this.getMonster().getName() + " yaşıyor!");
+            System.out.println("<S>avaş veya <K>aç");
+            String selectCase = scanner.nextLine();
+            selectCase = selectCase.toUpperCase();
+
             if (selectCase.equals("S") && combat(monsterNumber)) {
                 System.out.println("Savaş başlıyor...");
                 System.out.println(this.getName() + " Tebrikler. Tüm düşmanları yendiniz...");
                 if (this.getId() == 3) {
                     this.getPlayer().getInventory().getObjects().add("Yemek");
+                    System.out.println(this.isClean());
                     this.setClean(true);
+                    System.out.println(this.isClean());
                 }
 
                 if (this.getId() == 4) {
@@ -47,7 +50,6 @@ public class BattleLoc extends Location {
                 return true;
             }
         } else {
-            System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
             return true;
         }
 
@@ -160,11 +162,4 @@ public class BattleLoc extends Location {
         this.maxMonster = maxMonster;
     }
 
-    public boolean isClean() {
-        return clean;
-    }
-
-    public void setClean(boolean clean) {
-        this.clean = clean;
-    }
 }

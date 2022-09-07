@@ -44,8 +44,14 @@ public class Game {
                     location = new ToolStore(player);
                     break;
                 case 3:
-                    location = new Cave(player);
-                    break;
+                    if(location.isClean()) {
+                        System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
+                        break;
+                    }
+                    else {
+                        location = new Cave(player);
+                        break;
+                    }
                 case 4:
                     location = new Forest(player);
                     break;

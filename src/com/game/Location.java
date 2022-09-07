@@ -6,6 +6,7 @@ public abstract class Location {
     private Player player;
     private String name;
     public static Scanner scanner = new Scanner(System.in);
+    private boolean clean;
 
     public Location(Player player, String name) {
         this.player = player;
@@ -28,5 +29,13 @@ public abstract class Location {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isClean() {
+        return clean;
+    }
+
+    public void setClean(boolean clean) {
+        this.clean = clean;
     }
 }
