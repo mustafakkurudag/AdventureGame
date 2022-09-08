@@ -44,8 +44,9 @@ public class Game {
                     location = new ToolStore(player);
                     break;
                 case 3:
-                    if(location.isClean()) {
+                    if(location.getPlayer().getInventory().getObjects().contains("Yemek")) {
                         System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
+                        location.setClean(true);
                         break;
                     }
                     else {
@@ -53,11 +54,23 @@ public class Game {
                         break;
                     }
                 case 4:
-                    location = new Forest(player);
-                    break;
+                    if(location.getPlayer().getInventory().getObjects().contains("Odun")) {
+                        System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
+                        location.setClean(true);
+                        break;
+                    } else {
+                        location = new Forest(player);
+                        break;
+                    }
                 case 5:
-                    location = new River(player);
-                    break;
+                    if(location.getPlayer().getInventory().getObjects().contains("Su")) {
+                        System.out.println("Bu bölge temizlendi. Lütfen farklı bir bölge seçiniz.");
+                        location.setClean(true);
+                        break;
+                    } else {
+                        location = new River(player);
+                        break;
+                    }
                 default:
                     location = new SafeHouse(player);
             }

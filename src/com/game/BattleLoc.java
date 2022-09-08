@@ -31,22 +31,7 @@ public class BattleLoc extends Location {
             if (selectCase.equals("S") && combat(monsterNumber)) {
                 System.out.println("Savaş başlıyor...");
                 System.out.println(this.getName() + " Tebrikler. Tüm düşmanları yendiniz...");
-                if (this.getId() == 3) {
-                    this.getPlayer().getInventory().getObjects().add("Yemek");
-                    System.out.println(this.isClean());
-                    this.setClean(true);
-                    System.out.println(this.isClean());
-                }
-
-                if (this.getId() == 4) {
-                    this.getPlayer().getInventory().getObjects().add("Odun");
-                    this.setClean(true);
-                }
-
-                if (this.getId() == 5) {
-                    this.getPlayer().getInventory().getObjects().add("Su");
-                    this.setClean(true);
-                }
+                winAwardByLocName(this.getName());
                 return true;
             }
         } else {
@@ -59,6 +44,16 @@ public class BattleLoc extends Location {
         }
 
         return true;
+    }
+
+    public void winAwardByLocName(String name) {
+        if (name.equals("Mağara")) {
+            this.getPlayer().getInventory().getObjects().add("Yemek");
+        } else if (name.equals("Orman")) {
+            this.getPlayer().getInventory().getObjects().add("Odun");
+        } else if (name.equals("Nehir")) {
+            this.getPlayer().getInventory().getObjects().add("Su");
+        }
     }
 
     public boolean combat(int monsterNumber) {
