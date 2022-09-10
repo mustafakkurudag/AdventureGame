@@ -18,16 +18,17 @@ public class Game {
         System.out.println("Lütfen bir karakter seçiniz: ");
         player.selectChar();
 
-        Location location = null;
+        Location location = new SafeHouse(player);
 
         while (true) {
             player.printInfo();
             System.out.println("Bölgeler: ");
             System.out.println("1- Güvenli Ev");
             System.out.println("2- Mağaza");
-            System.out.println("3- Mağara -->> Ödül: <Yemek>  Dikkatli ol! Canavar çıkabilir!");
-            System.out.println("4- Orman -->> Ödül: <Odun>   Dikkatli ol! Canavar çıkabilir!");
-            System.out.println("5- Nehir -->> Ödül: <Su>  Dikkatli ol! Canavar çıkabilir!");
+            System.out.println("3- Mağara -->> Ödül: <Yemek>  Dikkatli ol! Zombi çıkabilir!");
+            System.out.println("4- Orman -->> Ödül: <Odun>   Dikkatli ol! Ayı çıkabilir!");
+            System.out.println("5- Nehir -->> Ödül: <Su>  Dikkatli ol! Vampir çıkabilir!");
+            System.out.println("6- Maden -->> Ödül: <Rastgele>  Dikkatli ol! Yılan çıkabilir!");
             System.out.println("0- Çıkış Yap");
 
             System.out.print("Lütfen gitmek istediğiniz bölgeyi seçiniz:");
@@ -71,6 +72,9 @@ public class Game {
                         location = new River(player);
                         break;
                     }
+                case 6:
+                    location = new Pit(player);
+                    break;
                 default:
                     location = new SafeHouse(player);
             }
